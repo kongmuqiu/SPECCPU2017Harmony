@@ -10,6 +10,42 @@ Run SPEC CPU 2017 benchmark on OpenHarmony/HarmonyOS NEXT. Please update SPEC CP
 
 It currently supports running SPEC CPU 2017 int rate-1 and fp rate-1.
 
+## New Features (This Fork)
+
+### CPU Core Pinning
+
+Added dynamic CPU core pinning with two modes:
+
+- **Hard Mode**: Direct `sched_setaffinity` for cores within the cpuset
+- **Soft Mode**: QoS + `util_clamp` guidance for cores outside the cpuset (e.g., ultra-large cores)
+
+Includes automatic detection of CPU topology, hmmac-safe pinning strategy, and a watchdog to maintain affinity during benchmark execution. See [docs/cpu-pinning-analysis.md](docs/cpu-pinning-analysis.md) for technical details.
+
+### Enhanced UI
+
+- CPU core selector for per-core benchmarking
+- CPU topology display (logical/physical cores, SMT detection)
+- Real-time pinning diagnostics
+- Benchmark cancellation support
+- Kernel info display (version, uptime)
+
+### Additional Build Scripts
+
+Individual Fortran benchmark build scripts for cross-compilation on non-Linux hosts:
+
+- `build-503.sh` (bwaves), `build-507.sh` (cactuBSSN), `build-521.sh` (wrf), `build-527.sh` (cam4), `build-549.sh` (fotonik3d), `build-554.sh` (roms), `build-exchange2.sh`
+- `build-fortran-libs.sh` for Fortran runtime libraries
+- `copy-so.sh` to copy compiled shared libraries into the project
+- `ohos-toolchain.cmake` for OpenHarmony cross-compilation
+
+### New Native APIs
+
+- `cpuTopology()` — CPU topology information
+- `pinDiag(core)` — pinning diagnostics
+- `getEffectiveCpuset()` — effective cpuset query
+- `cancelBenchmark()` — terminate running benchmark
+- `kernelInfo()` — kernel version and uptime
+
 ## Usage
 
 How to build on macOS (missing support for benchmarks that use Fortran):

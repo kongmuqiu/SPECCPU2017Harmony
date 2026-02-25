@@ -21,6 +21,8 @@ target_compile_definitions(entry PRIVATE "-DCXX_COMPILER_VERSION=${CMAKE_CXX_COM
 target_compile_definitions(entry PRIVATE "-DFORTRAN_COMPILER_VERSION=${CMAKE_Fortran_COMPILER_VERSION}")
 target_link_libraries(entry PUBLIC libace_napi.z.so)
 target_link_libraries(entry PUBLIC libhilog_ndk.z.so)
+target_link_libraries(entry PUBLIC libhitrace_ndk.z.so)
+target_link_libraries(entry PUBLIC libqos.so)
 
 # int
 add_subdirectory(500.perlbench_r)

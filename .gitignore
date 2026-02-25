@@ -14,3 +14,7 @@
 /flang
 # SPEC CPU 2017 benchspec
 /benchspec
+# IDE run configs
+/.run
+# Fortran module files
+*.mod

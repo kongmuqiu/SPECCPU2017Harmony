@@ -34,6 +34,7 @@
       "config": {
         "deviceType": [
           "phone",
+          "tablet",
           "2in1"
         ]
       }

@@ -6,11 +6,17 @@
     "mainElement": "EntryAbility",
     "deviceTypes": [
       "phone",
+      "tablet",
       "2in1"
     ],
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.KEEP_BACKGROUND_RUNNING"
+      }
+    ],
     "abilities": [
       {
         "name": "EntryAbility",
@@ -21,6 +27,10 @@
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
+        "launchType": "singleton",
+        "backgroundModes": [
+          "dataTransfer"
+        ],
         "skills": [
           {
             "entities": [

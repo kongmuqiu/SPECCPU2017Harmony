@@ -8,7 +8,7 @@ export function readWholeFile(path: string): ArrayBuffer {
   let file = fs.openSync(path, fs.OpenMode.READ_ONLY);
   let res = new Uint8Array(size);
 
-  let buf = new ArrayBuffer(4096);
+  let buf = new ArrayBuffer(262144); // 256KB read buffer
   let bytesRead: number = 0;
   while (bytesRead < size) {
     let length: number = fs.readSync(file.fd, buf);
