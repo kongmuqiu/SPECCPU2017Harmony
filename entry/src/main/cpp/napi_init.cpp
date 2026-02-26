@@ -136,6 +136,8 @@ static bool is_top_freq_core(int target_core) {
       if (cf.is_open()) cf >> freq;
     }
     if (freq <= 0) {
+      // 经验值: 连续 16 个 CPU 编号不存在则认为已扫描完所有核心,
+      // 避免遍历全部 CPU_SETSIZE (1024) 个条目。
       if (++consecutive_missing > 16) break;
       continue;
     }
@@ -194,11 +196,6 @@ static std::string find_cpuset_mount(std::string *all_cgroup_mounts = nullptr) {
       }
       if (fstype == "cpuset") { result = mnt; }
       else if (fstype == "cgroup" && opts.find("cpuset") != std::string::npos) { result = mnt; }
-      else if (fstype == "cgroup2" && result.empty()) {
-        // cgroup v2 unified — cpuset is a controller within it
-        // Check if this mount has cpuset.cpus files
-        if (all_cgroup_mounts) ; // just collect
-      }
     }
   }
   return result;
@@ -1417,6 +1414,7 @@ static napi_value CpuTopology(napi_env env, napi_callback_info info) {
     std::string base = "/sys/devices/system/cpu/cpu" + std::to_string(i) + "/topology/";
     int core_id = read_sysfs_int(base + "core_id");
     if (core_id < 0) {
+      // 同 is_top_freq_core() 中的经验值
       if (++consecutive_missing > 16) break;
       continue;
     }

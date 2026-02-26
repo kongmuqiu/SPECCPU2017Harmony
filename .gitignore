@@ -18,3 +18,10 @@
 /.run
 # Fortran module files
 *.mod
+# Pre-built shared libraries (build artifacts)
+entry/libs/
+# Legacy per-benchmark build scripts (replaced by build-fortran.sh)
+build-5*.sh
+build-exchange2.sh
+copy-so.sh
+docs/pr9-review-changes.md

@@ -10,7 +10,7 @@ Run SPEC CPU 2017 benchmark on OpenHarmony/HarmonyOS NEXT. Please update SPEC CP
 
 It currently supports running SPEC CPU 2017 int rate-1 and fp rate-1.
 
-## New Features (This Fork)
+## New Features
 
 ### CPU Core Pinning
 
@@ -29,14 +29,15 @@ Includes automatic detection of CPU topology, hmmac-safe pinning strategy, and a
 - Benchmark cancellation support
 - Kernel info display (version, uptime)
 
-### Additional Build Scripts
+### Fortran Cross-Compilation
 
-Individual Fortran benchmark build scripts for cross-compilation on non-Linux hosts:
+Fortran benchmarks (503, 507, 521, 527, 548, 549, 554) require separate cross-compilation using `flang-new-20`.
 
-- `build-503.sh` (bwaves), `build-507.sh` (cactuBSSN), `build-521.sh` (wrf), `build-527.sh` (cam4), `build-549.sh` (fotonik3d), `build-554.sh` (roms), `build-exchange2.sh`
-- `build-fortran-libs.sh` for Fortran runtime libraries
-- `copy-so.sh` to copy compiled shared libraries into the project
-- `ohos-toolchain.cmake` for OpenHarmony cross-compilation
+- `build-fortran.sh` — unified build script for all Fortran benchmarks
+- `build-fortran-libs.sh` — build Fortran runtime libraries from LLVM source
+- `ohos-toolchain.cmake` — CMake toolchain for OpenHarmony cross-compilation
+
+See [docs/build-fortran.md](docs/build-fortran.md) for setup and usage instructions.
 
 ### New Native APIs
 
